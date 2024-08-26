@@ -11,7 +11,7 @@ export default defineConfig({
         target: 'https://bb.vdev.tech',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, '/api'),
+        rewrite: (path) => path.replace(/^\/api/, '/'),
       }
     }
   }
