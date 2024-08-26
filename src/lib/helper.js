@@ -5,26 +5,30 @@ export function saveTokenWithExpiration(token, expirationMinutes) {
       token: token,
       expiration: expirationTime
   };
-  localStorage.setItem('authToken', JSON.stringify(tokenData));
+  sessionStorage.setItem('authToken', JSON.stringify(tokenData));
 }
+// saveTokenWithExpiration("token", 2) 
 
 export function getToken() {
-  const tokenData = JSON.parse(localStorage.getItem('authToken'));
+  const tokenData = JSON.parse(sessionStorage.getItem('authToken'));
   if (tokenData) {
       const now = new Date().getTime();
       if (now < tokenData.expiration) {
           return tokenData.token;
       } else {
-          localStorage.removeItem('authToken');
+          sessionStorage.removeItem('authToken');
           return null; // Token has expired
       }
   }
   return null; 
 }
+export function reomoveToken() {
+  sessionStorage.removeItem('authToken');
+}
 export const authToken = getToken()
 
 function getRemainingTime() {
-  const tokenData = JSON.parse(localStorage.getItem('authToken'));
+  const tokenData = JSON.parse(sessionStorage.getItem('authToken'));
   if (tokenData) {
       const now = new Date().getTime();
       const remainingTime = tokenData.expiration - now;
@@ -32,7 +36,7 @@ function getRemainingTime() {
           // Remaining time in milliseconds, you can convert it to minutes or seconds if needed
           return remainingTime;
       } else {
-          localStorage.removeItem('authToken');
+          sessionStorage.removeItem('authToken');
       }
   }
   return 0; // No token or token has expired
@@ -46,8 +50,6 @@ export function getRemainingMinutes() {
 
 
 
-
-
 export function capitalize(str) {
     if (typeof str !== 'string' || str.length === 0) {
       return '';
@@ -55,3 +57,31 @@ export function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
   
+  // email 
+
+  export function setEmail(email) {
+    // Encode the email using Base64
+    const encodedEmail = btoa(email);
+    // Set the cookie with the encoded email
+    document.cookie = `email=${encodedEmail}; path=/;`;
+}
+export function getEmail() {
+  // Retrieve the cookies
+  const cookies = document.cookie.split(';');
+  // Loop through cookies to find the email cookie
+  for (const cookie of cookies) {
+      const [name, value] = cookie.split('=').map(c => c.trim());
+      if (name === 'email') {
+          // Decode the email using Base64
+          return atob(value);
+      }
+  }
+  return null; // Return null if the email cookie is not found
+}
+
+
+ export function removeEmail() {
+    // Set the cookie to expire immediately by using the past date
+    document.cookie = 'email=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+}
+

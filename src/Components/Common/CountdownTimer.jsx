@@ -1,21 +1,40 @@
 import { Code } from '@nextui-org/react';
 import React, { useState, useEffect } from 'react';
+import { getRemainingMinutes } from '../../lib/helper';
+import { useNavigate } from 'react-router-dom';
 
-function CountdownTimer({initialTime=18000}) {
-  // Initial time in seconds (e.g., 1 hour)
-  const [timeLeft, setTimeLeft] = useState(initialTime);
+function CountdownTimer() {
+  const [timeLeft, setTimeLeft] = useState(getRemainingMinutes() * 60); // Initialize with remaining time in seconds
 
+  const navigate = useNavigate()
   useEffect(() => {
-    // Only set interval if timeLeft is greater than 0
-    if (timeLeft > 0) {
-      const interval = setInterval(() => {
-        setTimeLeft(timeLeft => timeLeft - 1);
-      }, 1000);
+    
+    const updateRemainingTime = () => {
+      const remainingMinutes = getRemainingMinutes();
+      if (remainingMinutes <= 0) {
+        sessionStorage.removeItem('authToken'); // Remove token if expired
+        setTimeLeft(0); // Set time left to zero
+      } else {
+        setTimeLeft(remainingMinutes * 60); // Update time left in seconds
+      }
+    };
 
-      // Cleanup the interval on component unmount
-      return () => clearInterval(interval);
-    }
-  }, [timeLeft]);
+    updateRemainingTime(); // Initial call to set the time left
+
+    const interval = setInterval(() => {
+      const remainingMinutes = getRemainingMinutes();
+      if (remainingMinutes <= 0) {
+        sessionStorage.removeItem('authToken'); // Remove token if expired
+        setTimeLeft(0); // Set time left to zero
+        clearInterval(interval); // Stop the interval if time is up
+      } else {
+        // setTimeLeft(remainingMinutes * 60); 
+        setTimeLeft(timeLeft => timeLeft - 1)// Update time left
+      }
+    }, 1000); // Update every second
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, []);
 
   // Convert seconds to hours, minutes, and seconds
   const hours = Math.floor(timeLeft / 3600);
@@ -28,12 +47,14 @@ function CountdownTimer({initialTime=18000}) {
   return (
     <div>
       <h1 className='text-md text-black gap-1 flex items-center text-5xl'>
-       <Code className='text-blue-500 text-5xl'>{formatTime(hours)}</Code>:
-       <Code className='text-blue-500 text-5xl'>{formatTime(minutes)}</Code>:
-       <Code className='text-blue-500 text-5xl'>{formatTime(seconds)}</Code>
-       </h1>
+        <Code className={`bg-blue-500 text-white text-5xl ${minutes<5?"bg-red-600 animate-pulse":""}`}>{formatTime(hours)}</Code>:
+        <Code className={`bg-blue-500 text-white text-5xl ${minutes<5?"bg-red-600 animate-pulse":""}`}>{formatTime(minutes)}</Code>:
+        <Code className={`bg-blue-500 text-white text-5xl ${minutes<5?"bg-red-600 animate-pulse":""}`}>{formatTime(seconds)}</Code>
+        {minutes === 0 && seconds=== 0?(navigate("/auth?login")):""}
+      </h1>
     </div>
   );
 }
 
 export default CountdownTimer;
+

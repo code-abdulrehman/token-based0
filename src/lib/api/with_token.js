@@ -16,7 +16,7 @@ export const apiWithToken = axios.create({
 apiWithToken.interceptors.request.use(config => {
     const authToken = getToken();
     if (authToken) {
-        config.headers.Authorization = `Bearer ${authToken}`;
+        config.headers.Authorization = `${authToken}`;
     }
     return config;
 }, error => {
