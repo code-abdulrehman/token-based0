@@ -10,7 +10,7 @@ export const loginUser = createAsyncThunk(
   'user/loginUser',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await apiWithoutToken.post('/users/log_in', credentials);
+      const response = await apiWithoutToken.post('/api/users/log_in', credentials);
       const { token } = response.data.data; // Adjust based on your API response
       saveTokenWithExpiration(token, expirationMinutes);
       return data; // Return both token and user data
