@@ -5,7 +5,7 @@ import { getToken } from '../helper';
 
 // Create an axios instance
 export const apiWithToken = axios.create({
-    baseURL: base_url,
+    // baseURL: base_url,
     headers: {
         Accept: "application/json",
         "Content-Type": "application/json; charset=utf-8"

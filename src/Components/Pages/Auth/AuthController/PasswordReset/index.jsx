@@ -46,11 +46,7 @@ export default function PasswordReset({ onReset }) {
                 />
                 <ErrorMessage name="password" component="div" className="text-red-500 text-xs mt-1" />
               </div>
-              <div className="flex gap-2 justify-end">
-                <Button type="submit" fullWidth color="primary" disabled={isSubmitting}>
-                  {isSubmitting ? (<><Spinner size='md' color="default" /></>) : 'Login'}
-                </Button>
-              </div>
+         
           <ErrorMessage name="password" component="div" className="text-red-500 text-xs mt-1" />
           <div className="flex gap-2 justify-end">
             <Button type="submit" fullWidth color="primary" disabled={isSubmitting}>

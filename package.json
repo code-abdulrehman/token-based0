@@ -1,7 +1,6 @@
 {
   "name": "token-based",
   "private": true,
-  "proxy":"https://bb.vdev.tech/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

@@ -7,7 +7,7 @@ export const fetchBuyers = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             // Use apiWithoutToken for login request
-            const response = await apiWithToken.get('/buyers');
+            const response = await apiWithToken.get('/api/buyers');
 
             // Return user data or other information
             console.log(response.data.data)
@@ -17,27 +17,13 @@ export const fetchBuyers = createAsyncThunk(
         }
     }
 );
-// export const fetchSingleBuyer = createAsyncThunk(
-//     'buyers/fetchSingleBuyer',
-//     async (id, { rejectWithValue }) => {
-//         try {
-//             // Use apiWithoutToken for login request
-//             const response = await apiWithToken.get(`/buyers/${id}`);
 
-//             // Return user data or other information
-//             console.log(response.data.data)
-//             return response.data.data;
-//         } catch (error) {
-//             return rejectWithValue(error.response.data);
-//         }
-//     }
-// );
 
 export const updateBuyer = createAsyncThunk(
     'buyers/updateBuyer',
     async ({ id, data }, { rejectWithValue }) => {
       try {
-        const response = await apiWithToken.put(`/buyer/${id}`, data);
+        const response = await apiWithToken.put(`/api/buyer/${id}`, data);
         return response.data;
       } catch (error) {
         return rejectWithValue(error.response?.data || error.message);
@@ -49,7 +35,7 @@ export const buyerFav = createAsyncThunk(
       async ({id,data}, { rejectWithValue }) => {
         try {
             // Use apiWithoutToken for login request
-            const response = await apiWithToken.post(`/favourite_buyer/${id}`, data);
+            const response = await apiWithToken.post(`/api/favourite_buyer/${id}`, data);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message); 
@@ -64,7 +50,7 @@ export const buyerFav = createAsyncThunk(
             throw new Error("ID or data is missing");
           }
     
-          const response = await apiWithToken.post(`/buyer_note/${id}`, { content: data });
+          const response = await apiWithToken.post(`/api/buyer_note/${id}`, { content: data });
           return response.data;
         } catch (error) {
           return rejectWithValue(error.response?.data || error.message);
