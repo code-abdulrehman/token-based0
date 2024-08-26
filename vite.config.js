@@ -8,7 +8,7 @@ export default defineConfig({
     port: 8080, 
     proxy: {
       '/api': {
-        target: 'https://bb.vdev.tech',
+        target: 'https://bb.vdev.tech/api',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, '/api'),
