@@ -27,7 +27,7 @@ export default function PasswordResetRequest({ onRequest }) {
           <ErrorMessage name="email" component="div" className="text-red-500 text-xs mt-1" />
           <div className="flex gap-2 justify-end">
             <Button type="submit" fullWidth color="primary" disabled={isSubmitting}>
-              {isSubmitting ? (<><Spinner size='md' color="default" /></>) : 'Request Reset Link'}
+              {isSubmitting ? (<><Spinner size='md' color="default" /></>) : 'Send OTP'}
             </Button>
           </div>
         </Form>
