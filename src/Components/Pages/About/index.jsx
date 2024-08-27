@@ -1,6 +1,7 @@
-// pages/about.js
+
 import { Avatar, Card } from '@nextui-org/react'; // Ensure this import is correct
 import { useState, useEffect } from 'react';
+import PageTitle from '../../Common/PageTitle';
 
 export default function About() {
   const [data, setData] = useState(null);
@@ -55,6 +56,7 @@ export default function About() {
         </Card>
       </Card>
     
+      <PageTitle title="About"/>
     </div>
   );
 }
