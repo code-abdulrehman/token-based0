@@ -1,19 +1,27 @@
-import { Button } from '@nextui-org/react'
+import { Button, spinner, Spinner } from '@nextui-org/react'
 import React from 'react'
 import { FaSignOutAlt } from 'react-icons/fa'
 import PageTitle from '../../../../Common/PageTitle';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../../../../../lib/redux/slices/authSlice/apis';
 import { useDispatch } from 'react-redux';
+import { reomoveToken } from '../../../../../lib/helper';
 
 const Logout = () => {
 const navigate = useNavigate()
 const dispatch = useDispatch()
-  const  logoutHandler = async () => {
-    // sessionStorage.removeItem('authToken');
+const logoutHandler = async () => {
+  try {
     await dispatch(logoutUser()).unwrap();
-    navigate("/auth?login")
+
+    reomoveToken(); 
+
+    navigate("/auth?login");
+  } catch (error) {
+    console.error("Failed to logout:", error);
   }
+};
+
 
   return (
     <>

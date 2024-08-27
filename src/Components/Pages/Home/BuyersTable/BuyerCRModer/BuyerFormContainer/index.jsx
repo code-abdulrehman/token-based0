@@ -9,7 +9,7 @@ const BuyerFormContainer = ({ existingValues, onClose }) => {
   const userId = existingValues?.id;
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     setIsSubmitting(true);
     console.log('Form Values:', values);
 
@@ -22,6 +22,7 @@ const BuyerFormContainer = ({ existingValues, onClose }) => {
         await dispatch(updateBuyer(values));
       }
       console.log('Form Submitted Successfully');
+      resetForm()
     } catch (error) {
       console.error('Submission error:', error);
     } finally {

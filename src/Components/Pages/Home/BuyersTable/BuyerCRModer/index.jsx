@@ -37,7 +37,7 @@ function BuyerCRModel({ isOpen, onClose, userId }) {
               <div className='w-full h-full'><Spinner color='primary' /></div>
             )
           ) : (
-            <BuyerFormContainer />
+            <BuyerFormContainer  onClose={onClose} />
           )}
         </ModalBody>
         <ModalFooter>
