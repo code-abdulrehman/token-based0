@@ -85,3 +85,15 @@ export function getEmail() {
     document.cookie = 'email=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
 }
 
+
+export function isImageUrl(url) {
+  // Default placeholder URL
+  const defaultUrl = "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg";
+  
+  // Check if URL starts with 'https://'
+  if (url.startsWith('https://')) {
+      return url;
+  } else {
+      return defaultUrl;
+  }
+}

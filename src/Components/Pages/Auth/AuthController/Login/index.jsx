@@ -7,7 +7,6 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { loginUser } from './../../../../../lib/redux/slices/authSlice/apis';
 import { useNavigate } from 'react-router-dom';
-
 // Validation schema using Yup
 const validationSchema = Yup.object({
   email: Yup.string().email('Invalid email address').required('Required'),
@@ -34,12 +33,12 @@ const Login = () => {
       await dispatch(loginUser(values));
       // Reset form on successful login
         navigate("/auth?logout")
-
-      resetForm();
-    } catch (error) {
-      // Handle errors if login fails
-      setErrors({ email: error.message, password: error.message });
-    } finally {
+        
+        resetForm();
+      } catch (error) {
+        // Handle errors if login fails
+        setErrors({ email: error.message, password: error.message });
+      } finally {
       setSubmitting(false);
     }
   };

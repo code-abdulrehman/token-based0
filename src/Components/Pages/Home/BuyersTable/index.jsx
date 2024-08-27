@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, useDisclosure, Spinner } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Spinner } from "@nextui-org/react";
 import { columns } from './TableColumn';
 import { useDispatch, useSelector } from "react-redux";
-import { buyerFav, fetchBuyers } from "../../../../lib/redux/slices/buyersSlice/apis";
-import { updateBuyer } from "../../../../lib/redux/slices/buyersSlice";
+import { fetchBuyers } from "../../../../lib/redux/slices/buyersSlice/apis";
+
 import TopContent from "./TopContent";
 import BottomContent from "./BottomContent";
 import TableCellContent from "./TableCellContent";
 
-const INITIAL_VISIBLE_COLUMNS = ["id", "first_name", "phone_number_primary", "is_favourite", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["id", "buyer", "primary_phone_number", "is_favourite", "is_complete", "actions"];
 
 function BuyersTable() {
 
@@ -86,7 +86,7 @@ function BuyersTable() {
   return (
     <>
       <Table
-        aria-label="Example table with custom cells, pagination and sorting"
+        aria-label="table with custom cells, pagination and sorting"
         isHeaderSticky
         bottomContent={<BottomContent selectedKeys={selectedKeys} filteredItems={filteredItems} page={page} pages={pages} setPage={setPage} />}
         bottomContentPlacement="outside"

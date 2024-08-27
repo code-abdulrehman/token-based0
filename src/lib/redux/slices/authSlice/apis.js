@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { apiWithToken } from "../../../api/with_token";
 import { apiWithoutToken } from "../../../api/without_token";
 import { reomoveToken, saveTokenWithExpiration } from "../../../helper";
-import { data } from "autoprefixer";
 
 const expirationMinutes = 120;
 
@@ -13,7 +12,7 @@ export const loginUser = createAsyncThunk(
       const response = await apiWithoutToken.post('/api/users/log_in', credentials);
       const { token } = response.data.data; // Adjust based on your API response
       saveTokenWithExpiration(token, expirationMinutes);
-      return data; // Return both token and user data
+      return response.data.data;; // Return both token and user data
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -26,7 +25,7 @@ export const signInUser = createAsyncThunk(
       const response = await apiWithoutToken.post('/api/users/register', credentials);
       const { token } = response.data.data; // Adjust based on your API response
       saveTokenWithExpiration(token, expirationMinutes);
-      return data; // Return both token and user data
+      return response.data.data;; // Return both token and user data
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -84,7 +83,7 @@ export const logoutUser = createAsyncThunk(
     try {
       await apiWithToken.delete('/api/users/log_out');
       reomoveToken()
-      return data.message;
+      return response.data.message;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

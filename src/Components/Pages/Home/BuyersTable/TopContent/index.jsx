@@ -1,8 +1,9 @@
-import React, { useMemo } from 'react';
-import { Input, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/react';
+import React, { useState, useMemo } from 'react';
+import { Input, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, useDisclosure } from '@nextui-org/react';
 import { FaChevronDown, FaPlus, FaSearch } from 'react-icons/fa';
 import { capitalize } from './../../../../../lib/helper';
 import { columns } from '../TableColumn';
+import BuyerCRModel from '../BuyerCRModer'; // Adjust the path as needed
 
 const TopContent = ({
   filterValue,
@@ -13,6 +14,8 @@ const TopContent = ({
   users,
   onRowsPerPageChange,
 }) => {
+  const { isOpen: isAddNewOpen, onOpen: onAddNewOpen, onClose: onAddNewClose } = useDisclosure();
+
   const topContent = useMemo(() => (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between gap-3 items-end">
@@ -47,7 +50,7 @@ const TopContent = ({
               ))}
             </DropdownMenu>
           </Dropdown>
-          <Button color="primary" endContent={<FaPlus />}>
+          <Button color="primary" endContent={<FaPlus />} onClick={onAddNewOpen}>
             Add New
           </Button>
         </div>
@@ -66,8 +69,11 @@ const TopContent = ({
           </select>
         </label>
       </div>
+
+      {/* Add New Buyer Modal */}
+      <BuyerCRModel isOpen={isAddNewOpen} onClose={onAddNewClose} />
     </div>
-  ), [filterValue, visibleColumns, onRowsPerPageChange, users.length, onSearchChange, setVisibleColumns]);
+  ), [filterValue, visibleColumns, onRowsPerPageChange, users.length, onSearchChange, setVisibleColumns, isAddNewOpen, onAddNewClose]);
 
   return topContent;
 };

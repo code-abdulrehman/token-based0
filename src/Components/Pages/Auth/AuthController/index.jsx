@@ -117,7 +117,7 @@ export default function AuthController() {
   const filteredTabs = !resetTabOpen ? tabs.filter(tab => tab.tokenBased === Boolean(authToken)) : resetTabs;
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-[90vh]">
+    <div className="flex items-center justify-center rounded-xl min-h-[88vh] overflow-auto bg-gray-100 p-4 w-full">
       <Card className="max-w-full w-[340px] h-[400px]">
         <CardBody className="overflow-hidden">
           <Tabs

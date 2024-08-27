@@ -1,18 +1,23 @@
 import { Code } from '@nextui-org/react';
 import React, { useState, useEffect } from 'react';
-import { getRemainingMinutes } from '../../lib/helper';
+import { getRemainingMinutes, reomoveToken } from '../../lib/helper';
 import { useNavigate } from 'react-router-dom';
 
 function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState(getRemainingMinutes() * 60); // Initialize with remaining time in seconds
 
-  const navigate = useNavigate()
+const navigate = useNavigate()
+     
+const handleLogout = () => {
+  navigate("/auth?login")
+}
   useEffect(() => {
     
     const updateRemainingTime = () => {
       const remainingMinutes = getRemainingMinutes();
       if (remainingMinutes <= 0) {
-        sessionStorage.removeItem('authToken'); // Remove token if expired
+        // sessionStorage.removeItem('authToken'); 
+        reomoveToken()
         setTimeLeft(0); // Set time left to zero
       } else {
         setTimeLeft(remainingMinutes * 60); // Update time left in seconds
@@ -24,7 +29,7 @@ function CountdownTimer() {
     const interval = setInterval(() => {
       const remainingMinutes = getRemainingMinutes();
       if (remainingMinutes <= 0) {
-        sessionStorage.removeItem('authToken'); // Remove token if expired
+        reomoveToken()
         setTimeLeft(0); // Set time left to zero
         clearInterval(interval); // Stop the interval if time is up
       } else {
@@ -50,7 +55,7 @@ function CountdownTimer() {
         <Code className={`bg-blue-500 text-white text-5xl ${minutes<5?"bg-red-600 animate-pulse":""}`}>{formatTime(hours)}</Code>:
         <Code className={`bg-blue-500 text-white text-5xl ${minutes<5?"bg-red-600 animate-pulse":""}`}>{formatTime(minutes)}</Code>:
         <Code className={`bg-blue-500 text-white text-5xl ${minutes<5?"bg-red-600 animate-pulse":""}`}>{formatTime(seconds)}</Code>
-        {minutes === 0 && seconds=== 0?(navigate("/auth?login")):""}
+        {minutes === 0 && seconds=== 0?(handleLogout()):""}
       </h1>
     </div>
   );

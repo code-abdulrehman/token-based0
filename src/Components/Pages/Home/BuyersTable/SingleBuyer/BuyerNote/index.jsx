@@ -14,7 +14,7 @@ const NoteSchema = Yup.object().shape({
 
 
 const BuyerNote = ({ user }) => {
-  const userId = user.id;
+  const userId = user?.id;
   const note = user?.note || '';
   // console.log(user, userId)
   
@@ -79,7 +79,7 @@ const BuyerNote = ({ user }) => {
         )}
       </h3>
       {!isNoteEdit && (
-        <div className="text-gray-600 line-clamp-3 text-ellipsis overflow-hidden">{note || " - - - - "}</div>
+        <div className="text-gray-600 line-clamp-3 text-ellipsis overflow-hidden">{user?.note || " - - - - "}</div>
       )}
     </div>
   );

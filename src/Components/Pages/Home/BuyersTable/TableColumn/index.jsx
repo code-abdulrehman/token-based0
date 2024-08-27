@@ -1,10 +1,11 @@
 export const columns = [
     {name: "ID", uid: "id", sortable: true},
-    {name: "NAME", uid: "first_name", sortable: true},
-    {name: "PHONE", uid: "phone_number_primary"},
+    {name: "BUYER", uid: "buyer"},
+    {name: "BUYER NOTE", uid: "note"},
+    {name: "PHONE", uid: "primary_phone_number"},
     {name: "EMAIL", uid: "email"},
-    {name: "LISENCE", uid: "lisence_id_no"},
-    {name: "FAVORITE", uid: "is_favourite"},
-    {name: "COMPLETE", uid: "is_completed"},
+    {name: "SKU ID", uid: "sku"},
+    {name: "FAVORITE", uid: "is_favourite",  sortable: true},
+    {name: "COMPLETE", uid: "is_completed",  sortable: true},
     {name: "ACTIONS", uid: "actions"},
   ];

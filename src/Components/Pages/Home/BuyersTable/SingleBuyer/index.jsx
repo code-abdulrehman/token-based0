@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, User } from '@nextui-org/react';
 import { FaInfoCircle } from 'react-icons/fa';
-import { TiTick } from 'react-icons/ti';
 import BuyerNote from './BuyerNote';
 import FavoriteButton from './FavoriteButton';
+import CompleteButton from './CompleteButton';
 
 function SingleBuyer({ isOpen, onClose, user, setUser }) {
+  if (!user) {
+    return null; // or some loading state or fallback UI
+  }
   const [localUser, setLocalUser] = useState(user);
-
+  
   useEffect(() => {
     // Update localUser whenever the user prop changes
     setLocalUser(user);
@@ -40,11 +43,9 @@ function SingleBuyer({ isOpen, onClose, user, setUser }) {
                     description={<>{localUser?.email}<br />{localUser?.primary_phone_number}</>}
                     name={`${localUser?.first_name} ${localUser?.last_name}`}
                     className="flex-shrink-0"
-                  />
+                  /> 
                   <FavoriteButton
                     user={localUser}
-                    // disableAni={true}
-                    // btnStyle={"flex justify-end p-0"}
                     onUpdate={handleUpdateUser}
                   />
                 </div>
@@ -67,8 +68,10 @@ function SingleBuyer({ isOpen, onClose, user, setUser }) {
                       className="flex-shrink-0"
                     />
                     <div className="flex justify-start items-center">
-                      <TiTick className={userInfo?.is_completed ? "text-green-600 text-2xl" : "text-gray-400 text-xl"} />
-                    </div>
+                    <CompleteButton
+                    user={localUser}
+                  />
+                   </div>
                   </div>
 
                   <p className="text-gray-600"><strong>Broker City:</strong> {userInfo?.broker_city || '- - - -'}</p>
